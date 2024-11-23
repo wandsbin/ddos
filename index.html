@@ -87,31 +87,109 @@
     <iframe id=remarkbox-iframe src="https://my.remarkbox.com/embed?nojs=true" style="height:600px;width:100%;border:none!important" tabindex=0></iframe>
   </noscript>
 </div>
-<script src="https://my.remarkbox.com/static/js/iframe-resizer/iframeResizer.min.js"></script>
-<script>
-  var rb_owner_key = "3b3431b7-a96d-11ef-9d40-29ab4fb285a0";
-  var thread_uri = window.location.href;
-  var thread_title = window.document.title;
-  var thread_fragment = window.location.hash;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #remarkbox-div {
+            background-color: #fff; /* 白色背景 */
+            border: 1px solid #ccc; /* 轻微的边框 */
+            padding: 10px; /* 内边距 */
+        }
 
-  // rb owner was here.
-  var rb_src = "https://my.remarkbox.com/embed" + 
-      "?rb_owner_key=" + rb_owner_key +
-      "&thread_title=" + encodeURI(thread_title) +
-      "&thread_uri=" + encodeURIComponent(thread_uri) + 
-      thread_fragment;
+        #remarkbox-iframe {
+            border: none; /* 移除iframe的边框 */
+            width: 100%; /* 宽度填满容器 */
+            height: 600px; /* 高度 */
+        }
 
-  function create_remarkbox_iframe() {
-    var ifrm = document.createElement("iframe");
-    ifrm.setAttribute("id", "remarkbox-iframe");
-    ifrm.setAttribute("scrolling", "no");
-    ifrm.setAttribute("src", rb_src);
-    ifrm.setAttribute("frameborder", "0");
-    ifrm.setAttribute("tabindex", "0");
-    ifrm.setAttribute("title", "Remarkbox");
-    ifrm.style.width = "100%";
-    document.getElementById("remarkbox-div").appendChild(ifrm);
-  }
+        .remarkbox-theme {
+            color: #fff; /* 文本颜色 */
+            background-color: #4CAF50; /* 绿色背景 */
+        }
+
+        .remarkbox-theme a {
+            color: #4CAF50; /* 链接颜色 */
+            text-decoration: none; /* 移除下划线 */
+        }
+
+        .remarkbox-theme a:hover {
+            color: #45a049; /* 鼠标悬停时的颜色变化 */
+        }
+
+        .remarkbox-theme button, .remarkbox-theme input[type="submit"] {
+            background-color: #4CAF50; /* 按钮背景色 */
+            color: #fff; /* 按钮文本颜色 */
+            border: none; /* 无边框 */
+            padding: 10px 20px; /* 内边距 */
+            cursor: pointer; /* 鼠标悬停时显示指针 */
+        }
+
+        .remarkbox-theme button:hover, .remarkbox-theme input[type="submit"]:hover {
+            background-color: #45a049; /* 鼠标悬停时的颜色变化 */
+        }
+
+        .remarkbox-theme input[type="text"], .remarkbox-theme textarea {
+            border: 1px solid #ccc; /* 输入框边框 */
+            padding: 10px; /* 内边距 */
+            width: 100%; /* 宽度填满容器 */
+        }
+
+        @media (max-width: 768px) {
+            #remarkbox-iframe {
+                height: 400px; /* 小屏幕上的高度调整 */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Remarkbox - Your readers want to communicate with you -->
+    <div id="remarkbox-div">
+        <noscript>
+            <iframe id="remarkbox-iframe" src="https://my.remarkbox.com/embed?nojs=true" style="height:600px;width:100%;border:none!important" tabindex="0"></iframe>
+        </noscript>
+    </div>
+    <script src="https://my.remarkbox.com/static/js/iframe-resizer/iframeResizer.min.js"></script>
+    <script>
+        var rb_owner_key = "3b3431b7-a96d-11ef-9d40-29ab4fb285a0";
+        var thread_uri = window.location.href;
+        var thread_title = window.document.title;
+        var thread_fragment = window.location.hash;
+
+        // rb owner was here.
+        var rb_src = "https://my.remarkbox.com/embed" + 
+            "?rb_owner_key=" + rb_owner_key +
+            "&thread_title=" + encodeURI(thread_title) +
+            "&thread_uri=" + encodeURIComponent(thread_uri) + 
+            thread_fragment;
+
+        function create_remarkbox_iframe() {
+            var ifrm = document.createElement("iframe");
+            ifrm.setAttribute("id", "remarkbox-iframe");
+            ifrm.setAttribute("scrolling", "no");
+            ifrm.setAttribute("src", rb_src);
+            ifrm.setAttribute("frameborder", "0");
+            ifrm.setAttribute("tabindex", "0");
+            ifrm.setAttribute("title", "Remarkbox");
+            ifrm.style.width = "100%";
+            document.getElementById("remarkbox-div").appendChild(ifrm);
+        }
+        create_remarkbox_iframe();
+        iFrameResize({
+            checkOrigin: ["https://my.remarkbox.com"],   
+            inPageLinks: true,
+            initCallback: function(e) {
+                e.iFrameResizer.moveToAnchor(thread_fragment);
+            }
+        },
+        document.getElementById("remarkbox-iframe")
+        );
+    </script>
+</body>
+</html>
   create_remarkbox_iframe();
   iFrameResize(
     {
